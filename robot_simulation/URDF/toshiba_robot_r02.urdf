@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<robot name="sr_scara_hx">
+
+<!--Links -->
+<link name="base_link">
+ <visual>
+  <origin xyz="0 0 0.00158925" rpy="0 0 0" />
+   <geometry>
+     <mesh filename="package://robot_simulation/meshes/base_R01.stl" scale="0.001 0.001 0.001"/>  
+   </geometry>
+   <material name="black">
+     <color rgba="0.1 0.1 0.1 1"/>
+   </material>
+ </visual>
+ <collision>
+  <origin xyz="0 0 0.00158925" rpy="0 0 0" />
+   <geometry>
+     <mesh filename="package://robot_simulation/meshes/base_R01.stl" scale="0.001 0.001 0.001"/>  
+   </geometry>
+ </collision>  
+</link>
+
+<link name="link1">
+ <visual>
+  <origin xyz="0 0 0" rpy="0 0 0" />
+   <geometry>
+     <mesh filename="package://robot_simulation/meshes/arm_link_R01.stl" scale="0.001 0.001 0.001"/>  
+   </geometry>
+   <material name="red">
+     <color rgba="0.9 0.1 0.1 1"/>
+   </material>
+ </visual>
+ <collision>
+  <origin xyz="0 0 0" rpy="0 0 0" />
+   <geometry>
+     <mesh filename="package://robot_simulation/meshes/arm_link_R01.stl" scale="0.001 0.001 0.001"/>  
+   </geometry>
+ </collision>
+</link>
+
+<link name="link2">
+ <visual>
+  <origin xyz="0.300 0 0" rpy="0 0 0" />
+   <geometry>
+     <mesh filename="package://robot_simulation/meshes/head_link_R01.stl" scale="0.001 0.001 0.001"/>  
+   </geometry>
+   <material name="black">
+     <color rgba="0.1 0.1 0.1 1"/>
+   </material>
+ </visual>
+ <collision>
+  <origin xyz="0.300 0 0" rpy="0 0 0" />
+   <geometry>
+     <mesh filename="package://robot_simulation/meshes/head_link_R01.stl" scale="0.001 0.001 0.001"/>  
+   </geometry>
+  </collision>
+</link>
+
+<link name="probe">
+ <visual>
+  <origin xyz="0 0 0" rpy="0 0 0" />
+  <geometry>
+     <mesh filename="package://robot_simulation/meshes/End_link_R01.stl" scale="0.001 0.001 0.001"/>  
+  </geometry>
+  <material name="red">
+     <color rgba="0.7 0.1 0.1 1"/>
+  </material>
+ </visual>
+ <collision>
+  <origin xyz="0 0 0" rpy="0 0 0" />
+  <geometry>
+     <mesh filename="package://robot_simulation/meshes/End_link_R01.stl" scale="0.001 0.001 0.001"/>  
+  </geometry>
+ </collision>
+</link>
+
+
+<!-- Joints 
+<link name = "gripper_base">
+ <visual>
+  <origin xyz ="0 0 -0.085" rpy="0 0 0" />
+   <geometry>
+     <box size="0.06 .02 .01"/>
+   </geometry>
+ </visual>
+</link>
+<link name = "gripper_dummy">
+ <visual>
+  <origin xyz ="0 0 -0.095" rpy="0 0 0" />
+   <geometry>
+     <box size="0.06 .02 .01"/>
+   </geometry>
+ </visual>
+ </link>>
+
+-->
+
+
+<!-- Joints -->
+
+<joint name="joint1" type="revolute">
+  <axis xyz="0 0 1" /> 
+  <limit effort="3.0" velocity="0.01" lower="-2.617" upper="2.617"/>
+  <origin xyz="0 0 0.00158925" rpy="0 0 0" />
+  <parent link="base_link" />
+  <child link="link1" />
+</joint>
+
+<joint name="joint2" type="revolute">
+ <axis xyz="0 0 1" /> 
+ <limit effort="3.0" velocity="0.01" lower="-2.617" upper="2.617"/>
+ <origin xyz="-0.3 0 0" rpy="0 0 0" />
+ <parent link="link1" />
+ <child link="link2" />
+</joint>
+
+<joint name="joint3" type="prismatic">
+ <axis xyz="0 0 1" /> 
+ <limit effort="3.0" velocity="0.01" lower="-0.1" upper="0.05"/>
+ <origin xyz="0.3 0 0" rpy="0 0 0" />
+ <parent link="link2" />
+ <child link="probe" />
+</joint>
+
+
+<!-- Joints 
+<joint name ="gripper_con" type="revolute">
+ <axis xyz="0 0 1" /> 
+ <limit effort="3.0" velocity="0.01" lower="-3" upper="3"/>
+ <origin rpy="0 0 0" xyz="0 0 0"/>
+ <parent link = "probe"/>
+ <child link = "gripper_base" />
+</joint>
+
+<joint name ="gripper_dummy" type="fixed">
+ <origin rpy="0 0 0" xyz="0 0 0"/>
+ <parent link = "gripper_base"/>
+ <child link = "gripper_dummy" />
+</joint>
+-->
+
+<!-- Transmissions -->
+
+  <transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint1"/>
+    <actuator name="motor1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="tran2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint2"/>
+    <actuator name="motor2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="tran3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint3"/>
+    <actuator name="motor3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+</robot> 
