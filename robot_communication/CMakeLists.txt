@@ -5,10 +5,11 @@ project(robot_communication)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  message_generation
+  pick_and_place
   roscpp
   rospy
   std_msgs
-  message_generation
  )
 
 find_package(Qt4 COMPONENTS QtCore QtGui)
@@ -107,7 +108,12 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES robot_communication
-  CATKIN_DEPENDS roscpp rospy std_msgs
+  CATKIN_DEPENDS
+    message_runtime
+    pick_and_place
+    roscpp
+    rospy
+    std_msgs
 #  DEPENDS system_lib
 )
 

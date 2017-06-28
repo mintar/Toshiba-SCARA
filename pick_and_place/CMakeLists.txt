@@ -5,24 +5,27 @@ project(pick_and_place)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  dynamic_reconfigure
+  geometry_msgs
+  message_generation
   pcl_conversions
   pcl_msgs
   pcl_ros
-  sensor_msgs
   roscpp
   rospy
+  sensor_msgs
   std_msgs
-  dynamic_reconfigure
   tf
 )
 
 
 find_package(PCL REQUIRED)
-# Add include directories
-include_directories(include ${PCL_INCLUDE_DIRS})
 
-# Add link directories
-link_directories(${PCL_LIBRARY_DIRS})
+# Add include directories
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+  ${PCL_INCLUDE_DIRS}
+)
 
 add_definitions(${PCL_DEFINITIONS})
 
@@ -119,7 +122,18 @@ add_definitions(${PCL_DEFINITIONS})
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES pick_and_place
-#   CATKIN_DEPENDS pcl_conversions pcl_msgs pcl_ros sensor_msgs
+   CATKIN_DEPENDS
+     dynamic_reconfigure
+     geometry_msgs
+     message_runtime
+     pcl_conversions
+     pcl_msgs
+     pcl_ros
+     roscpp
+     rospy
+     sensor_msgs
+     std_msgs
+     tf
 #  DEPENDS system_lib
 )
 
