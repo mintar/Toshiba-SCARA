@@ -5,6 +5,7 @@ project(pick_and_place)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  ar_track_alvar_msgs
   dynamic_reconfigure
   geometry_msgs
   message_generation
@@ -123,6 +124,7 @@ catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES pick_and_place
    CATKIN_DEPENDS
+     ar_track_alvar_msgs
      dynamic_reconfigure
      geometry_msgs
      message_runtime
